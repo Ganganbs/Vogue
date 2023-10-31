@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Order Details</title>
+	
+	<link rel="icon" href="/assets/shop/images/voguelogo.png" type="image/x-icon">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="assets/shop/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/shop/css/font-awesome.css">
+
+    <link rel="stylesheet" href="assets/shop/css/templatemo-hexashop.css">
+
+    <link rel="stylesheet" href="assets/shop/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="assets/shop/css/lightbox.css">
+<!--
+
+TemplateMo 571 Hexashop
+
+https://templatemo.com/tm-571-hexashop
+
+-->
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+     <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">
+                            <img src="assets/shop/images/vogue.png" style="width:70%;">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="/" >Home</a></li>
+                           <!--  <li class="scroll-to-section"><a href="#men">Men's</a></li>
+                            <li class="scroll-to-section"><a href="#women">Women's</a></li>
+                            <li class="scroll-to-section"><a href="#kids">Kid's</a></li> -->
+                            <li class="submenu">
+                                <a href="javascript:;">Vogue</a>
+                                <ul>
+                                    <li><a href="/about">About Us</a></li>
+                                    <!-- <li><a href="/allproducts">Products</a></li> -->
+                                    <!-- <li><a href="shop/single-product.html">Single Product</a></li> -->
+                                    <li><a href="/contact">Contact Us</a></li>
+                                </ul>
+                            </li> 
+                            
+                           <li class="submenu">
+                                <a href="javascript:;" th:text="${firstName}"></a>
+                                <ul>
+                                	<li><a href="/profile">Profile</a></li>
+                                    <li><a href="/viewCart">Cart</a></li>
+                                    <!-- <li><a href="#">Wishlist</a></li> -->
+                                    <li><a href="/orders">Orders</a></li>
+ <!--                               <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li> -->   
+                               </ul>
+                           </li> 
+                            <!-- <li class="scroll-to-section"><a href="#explore">Explore</a></li> -->
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+<!--    <div class="section">
+			container
+			<div class="container">
+			  <div class="row">
+				    <div class="col-md-4" hidden>
+				      <p class="mtext-106 cl2">Order ID: <span th:text="${order.uuid}" class="text-primary"></span></p>
+				    </div>
+				    <div class="col-md-4">
+				      <p class="mtext-106 cl2">Order Placed on: <span th:text="${orderDate}" class="text-success"></span></p>
+				    </div>
+				    <div class="col-md-4">
+				      <p class="mtext-106 cl2">Payment Method: <span th:text="${order.orderType}" class="text-info"></span></p>
+				    </div>
+			  </div>
+		</div>
+
+		</div> -->
+		<div id="breadcrumb" class="section" style="
+    margin-top: 118px;
+">
+		
+		<div class="container mt-5">
+    <h1>Order Details</h1>
+
+    <div class="alert alert-success" th:if="${orderSuccessfulAnimation}" role="alert">
+        Order placed successfully!
+    </div>
+    
+
+    <h4>Order ID: <span th:text="${order.uuid}"></span></h3>
+    <h4>Order Date: <span th:text="${order.createdAt}"></span></h4>
+
+    <!-- Order Tracking Bar -->
+    <!-- <div class="progress mt-3">
+        <div class="progress-bar bg-success" role="progressbar" style="width: ${orderStatusPercentage}%"
+             aria-valuenow="${orderStatusPercentage}" aria-valuemin="0" aria-valuemax="100">
+            <span th:text="${order.orderStatus}"></span>
+        </div>
+    </div> -->
+    
+    <!-- <div class="progress mt-3">
+    <div th:classappend="${#strings.equals(order.orderStatus, 'CANCELLED') ? 'progress-bar bg-danger' : 
+                            #strings.equals(order.orderStatus, 'RETURNED') ? 'progress-bar bg-warning' : 
+                            'progress-bar bg-success'}"
+         role="progressbar" style="width: ${orderStatusPercentage}%"
+         aria-valuenow="${orderStatusPercentage}" aria-valuemin="0" aria-valuemax="100">
+        <span th:text="${order.orderStatus}"></span>
+    </div>
+</div> -->
+
+<div class="progress mt-3">
+    <div th:class="${#strings.equals(order.orderStatus, 'PROCESSING') ? 'progress-bar bg-warning' : 
+                    #strings.equals(order.orderStatus, 'SHIPPED') ? 'progress-bar bg-info' : 
+                    #strings.equals(order.orderStatus, 'DELIVERED') ? 'progress-bar bg-success' : 
+                    'progress-bar bg-danger'}"
+         th:style="'width: ' + (${#strings.equals(order.orderStatus, 'PROCESSING') ? 33 : 
+                                #strings.equals(order.orderStatus, 'SHIPPED') ? 66 : 
+                                #strings.equals(order.orderStatus, 'DELIVERED') ? 100 : 0}) + '%;'"
+         role="progressbar" 
+         aria-valuenow="${#strings.equals(order.orderStatus, 'PROCESSING') ? 33 : 
+                         #strings.equals(order.orderStatus, 'SHIPPED') ? 66 : 
+                         #strings.equals(order.orderStatus, 'DELIVERED') ? 100 : 0}" 
+         aria-valuemin="0" 
+         aria-valuemax="100">
+        <span th:text="${order.orderStatus}"></span>
+    </div>
+</div>
+
+<span th:text="${#strings.equals(order.orderStatus, 'PAYMENT_PENDING') ? 'PAYMENT PENDING' : order.orderStatus}"
+                                      th:class="${#strings.equals(order.orderStatus, 'PROCESSING') ? 'badge bg-waning me-1' :
+                                                #strings.equals(order.orderStatus, 'SHIPPED') ? 'badge bg-info me-1' :
+                                                #strings.equals(order.orderStatus, 'DELIVERED') ? 'badge bg-success me-1' :
+                                                #strings.equals(order.orderStatus, 'CANCELLED') ? 'badge bg-danger me-1' :
+                                                #strings.equals(order.orderStatus, 'RETURNED') ? 'badge bg-primary me-1' :
+                                                #strings.equals(order.orderStatus, 'REFUNDED') ? 'badge bg-info me-1' :
+                                                #strings.equals(order.orderStatus, 'PAYMENT_PENDING') ? 'badge bg-danger me-1' :
+                                                #strings.equals(order.orderStatus, 'RETURN_REQUESTED') ? 'badge bg-warning me-1' :
+                                                'badge bg-label-default me-1'}">
+                                </span>
+
+
+
+<br><br><br>
+
+<div >
+	<a type="button"  th:href="@{/generate-invoice(orderId=${order.uuid})}"  class="btn btn-warning mt-1">Generate Invoice</a>
+</div>
+
+<!-- <button><span th:if="${order.orderStatus.name() == 'DELIVERED'}">
+<a th:href="@{/order/generate-invoice(orderId=${order.uuid})}"
+class="btn btn-info text-white">Invoice</a></span>
+</button> -->
+    <!-- Order Items Table -->
+    <h2>Order Items</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${orderItems}">
+            <td th:text="${item.productId.name}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.orderPrice * item.quantity}"></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        </tbody>
+        <tfoot>
+    <tr>
+        
+        <td>Tax:</td>
+        <td></td>
+        <td th:text="${order.tax}"></td>
+    </tr>
+    <tr>
+    <td style="font-weight: bold;">Total:</td>
+    <td></td>
+    <td style="font-weight: bold;" th:text="${order.total}"></td>
+    </tr>
+</tfoot>
+    </table>
+
+    <!-- Additional Order Details -->
+    <!-- Add more Thymeleaf expressions to display other order details as needed -->
+
+</div>
+   
+  
+    </div>
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="first-item">
+                        <!-- <div class="logo">
+                            <img src="assets/shop/images/vogue.jpg" alt="hexashop ecommerce templatemo">
+                        </div> -->
+                        <ul>
+                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                            <li><a href="#">hexashop@company.com</a></li>
+                            <li><a href="#">010-020-0340</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Shopping &amp; Categories</h4>
+                    <ul>
+                        <li><a href="#">Men’s Shopping</a></li>
+                        <li><a href="#">Women’s Shopping</a></li>
+                        <li><a href="#">Kid's Shopping</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Help &amp; Information</h4>
+                    <ul>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Tracking ID</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-12">
+                    <div class="under-footer">
+                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved. 
+                        
+                        <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a>
+
+                        <br>Distributed By: <a href="https://themewagon.com" target="_blank" title="free & premium responsive templates">ThemeWagon</a></p>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- jQuery -->
+    <script src="assets/shop/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/shop/js/popper.js"></script>
+    <script src="assets/shop/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="assets/shop/js/owl-carousel.js"></script>
+    <script src="assets/shop/js/accordions.js"></script>
+    <script src="assets/shop/js/datepicker.js"></script>
+    <script src="assets/shop/js/scrollreveal.min.js"></script>
+    <script src="assets/shop/js/waypoints.min.js"></script>
+    <script src="assets/shop/js/jquery.counterup.min.js"></script>
+    <script src="assets/shop/js/imgfix.min.js"></script> 
+    <script src="assets/shop/js/slick.js"></script> 
+    <script src="assets/shop/js/lightbox.js"></script> 
+    <script src="assets/shop/js/isotope.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="assets/shop/js/custom.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+
+    </script>
+
+  </body>
+</html>

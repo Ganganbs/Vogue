@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Profile</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="assets/shop/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/shop/css/font-awesome.css">
+
+    <link rel="stylesheet" href="assets/shop/css/templatemo-hexashop.css">
+
+    <link rel="stylesheet" href="assets/shop/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="assets/shop/css/lightbox.css">
+    
+    <!-- Integrated Style -->
+    <!-- Google font -->
+ 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+ 		<!-- Bootstrap -->
+ 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+ 		<!-- Slick -->
+ 		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+ 		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+
+ 		<!-- nouislider -->
+ 		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+
+ 		<!-- Font Awesome Icon -->
+ 		<link rel="stylesheet" href="css/font-awesome.min.css">
+
+ 		<!-- Custom stlylesheet -->
+ 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+    
+    
+    
+    
+<!--
+
+TemplateMo 571 Hexashop
+
+https://templatemo.com/tm-571-hexashop
+
+-->
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">
+                            <img src="assets/shop/images/vogue.png" style="width:70%;">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
+                           <!--  <li class="scroll-to-section"><a href="#men">Men's</a></li>
+                            <li class="scroll-to-section"><a href="#women">Women's</a></li>
+                            <li class="scroll-to-section"><a href="#kids">Kid's</a></li> -->
+                            <li class="submenu">
+                                <a href="javascript:;">Vogue</a>
+                                <ul>
+                                    <li><a href="/about">About Us</a></li>
+                                    <!-- <li><a href="/allproducts">Products</a></li> -->
+                                    <!-- <li><a href="shop/single-product.html">Single Product</a></li> -->
+                                    <li><a href="/contact">Contact Us</a></li>
+                                </ul>
+                            </li> 
+                            
+                           <li class="submenu">
+                                <a href="javascript:;" th:text="${firstName}"></a>
+                                <ul>
+                                	<li><a href="/profile">Profile</a></li>
+                                    <li><a href="/viewCart">Cart</a></li>
+                                    <!-- <li><a href="#">Wishlist</a></li> -->
+                                    <li><a href="/orders">Orders</a></li>
+ <!--                               <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li> -->   
+                               </ul>
+                           </li> 
+                            <!-- <li class="scroll-to-section"><a href="#explore">Explore</a></li> -->
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    
+    
+    <!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="breadcrumb-header">My Account</h3>
+						<ul class="breadcrumb-tree">
+							<li><a href="#">Home</a></li>
+							<li class="active">My Account</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<section class="txt-center p-lr-15 p-tb-10">
+		
+
+		<h4 class="text-danger" th:if="${addAddress}">
+			Please add an address to continue with the checkout.
+		</h4>
+		
+		<div th:if="${addressExists}">
+    		<p>Address already exists!</p>
+		</div>
+
+		<div th:if="${setupAddressWarning}" class="alert alert-warning" role="alert">
+			<h4 class="alert-heading">No Address Found!</h4>
+			<p>Please add an address to place an order.</p>
+			<a onclick="addAddressClick()" href="#" type="button" class="btn-sm btn-primary text-white">Add New Address</a>
+		</div>
+
+
+	</section>
+<!--Profile-->
+	<div class="row justify-content-center">
+		<div class="card mb-3" style="max-width: 1000px;">
+			<div class="row g-0" hidden>
+				<div class="col-md-3 col-12 d-flex align-items-center justify-content-center m-2">
+					<!-- Your image or Lottie animation code here -->
+					<script src="/js/lottie-player.js"></script>
+					<lottie-player src="https://assets5.lottiefiles.com/temp/lf20_815p4J.json"  background="transparent"  speed="2"  style="width: 300px; height: 150px;"   autoplay></lottie-player>
+
+				</div>
+				<!-- <div class="col-md-8 col-12">
+					<div class="card-body text-center">
+						<h5 class="card-title font-weight-bold">eShop Wallet</h5>
+						<h5 class="card-title" th:text="${'Balance: ₹ ' + #numbers.formatDecimal(walletBalance, 0, 0)}">Balance</h5>
+						<p th:text="${'Last Updated: ' + walletUpdateTime}">Last Updated:</p>
+						<p><a href="/walletHistory">View History</a></p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container rounded bg-white mt-5 mb-5">
+
+		<div class="row">
+
+
+			<!-- <div class="col-md-3 border-right">
+				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+					<img class="rounded-circle mt-5" width="150px" src="/images/icons/user-icon.png">
+					<span class="font-weight-bold"></span><span class="text-black-50"></span><span> </span></div>
+			</div> -->
+			<div class="col-md-1"> </div>
+			<div class="col-md-10 border-right border-left ">
+				<div class="p-3 py-1">
+					<form th:action="@{/user/save}" th:object="${UserDto}" method="POST" id="mainProfileForm">
+					
+					
+					<p id="errorMsg" hidden class="error-text">Please enter all fields</p>
+        			<p id="errorMsg2" hidden class="error-text">Invalid character found in username/password</p>
+        			
+        			
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="text-left">Profile Settings</h4>
+					</div>
+					<div class="row mt-2">
+						<div class="col-md-6"><label class="labels">First Name</label><input type="text" oninput="validate()" id="firstName" class="form-control" placeholder="First Name" name="firstName" th:value="${user.firstName}"></div>
+						<div class="col-md-6"><label class="labels">Last Name</label><input type="text" oninput="validate()" id="lastName" class="form-control"  name="lastName"  th:value="${user.lastName}" placeholder="Last Name"></div>
+					</div>
+					<div class="row mt-3">
+						<div class="col-md-12"><label class="labels">ID</label><input type="text" class="form-control" placeholder="" name="uuid" th:value="${user.uuid}" readonly="readonly" ></div>
+						<div class="col-md-12"><label class="labels">username</label><input type="text" oninput="validate()" id="username" class="form-control" placeholder="" name="uuid" th:value="${user.username}" readonly="readonly" ></div>
+						<div class="col-md-12"><label class="labels">Phone</label><input type="text" oninput="validate()" id="firstName"class="form-control" placeholder="enter phone number" name="phone" th:value="${user.phone}"></div>
+<!--						<div class="col-md-12"><label class="labels">Flat</label><input type="text" class="form-control" placeholder="flat" name="flat" th:value="${user.savedAddress.flat}"></div>-->
+<!--						<div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="area" name="area" th:value="${user.savedAddress.area}"></div>-->
+<!--						<div class="col-md-12"><label class="labels">Town</label><input type="text" class="form-control" placeholder="town" name="town" th:value="${user.savedAddress.town}"></div>-->
+<!--						<div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="city" name="city" th:value="${user.savedAddress.city}"></div>-->
+<!--						<div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="state" name="state" th:value="${user.savedAddress.state}"></div>-->
+						<div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" name="email" th:value="${user.email}"></div>
+<!--						<div class="col-md-12"><label class="labels">PIN</label><input type="text" class="form-control" placeholder="pin" name="pin" th:value="${user.savedAddress.pin}"></div>-->
+						<div class="col-md-12"><label class="labels">Old Password</label><input onchange="passwordChange()" type="text" class="form-control" placeholder="Old Password" name="password"></div>
+						<div class="col-md-12"><label class="labels">New Password</label><input  onchange="passwordChange()"  oninput="validate()" id="pass1" type="text" class="form-control" placeholder="New Password" name="newPassword" ></div>
+						<div class="col-md-12"><label class="labels">Re Enter New Password</label><input  onchange="passwordChange()"  type="text"  oninput="validate()" id="pass2" class="form-control" placeholder="New Password" name="newPasswordRe"></div>
+					</div>
+
+						<div class="container mt-3">
+						<br>
+							<h4>Addresses:</h4>
+
+							<div class="row mt-3">
+								<!-- Loop through addresses and display each address as a card -->
+								<div th:if="${address.enabled} And ${!address.deleted}" class="col-md-4" th:each="address, rowIndex : ${addresses}">
+									<div class="card mb-3">
+										<div class="card-body">
+											<div class="d-flex align-items-center justify-content-between">
+												<h5 class="card-title" th:text="${'Address ' + rowIndex.count}"> </h5>
+												<span th:if="${address.defaultAddress}" class="badge badge-success">Default</span>
+											</div>
+
+											<p class="card-text">
+												Flat: <span th:text="${address.flat}"></span><br>
+												Area: <span th:text="${address.area}"></span><br>
+												Town: <span th:text="${address.town}"></span><br>
+												City: <span th:text="${address.city}"></span><br>
+												State: <span th:text="${address.state}"></span><br>
+												PIN: <span th:text="${address.pin}"></span><br>
+												Landmark: <span th:text="${address.landmark}"></span>
+											</p>
+
+											<a  href="#"  th:attr="onclick='editOldAddress(event, &quot;' + ${address.uuid} + '&quot;, &quot;' + ${address.flat} + '&quot;, &quot;' + ${address.area} + '&quot;, &quot;' + ${address.town} + '&quot;, &quot;' + ${address.city} + '&quot;, &quot;' + ${address.state} + '&quot;, &quot;' + ${address.pin} + '&quot;, &quot;' + ${address.landmark} + '&quot, &quot;' + ${address.defaultAddress} + '&quot;)'"
+											   title="Edit" data-toggle="tooltip" id="editAddressBtn"><i class="btn-sm btn-warning mx-3">edit</i></a>
+												<a title="Delete" data-toggle="tooltip" th:href="@{/address/delete/{id}(id=${address.uuid})}"><i class="mx-3 btn-sm btn-danger">delete</i></a>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<br>
+						</div>
+													<a onclick="addAddressClick()" href="#" type="button" class="btn-sm btn-primary text-white ">Add New Address</a>
+						
+						<div class="mt-5 text-center"><button onfocus="passwordChange()" id="submitBtn" class="btn btn-success profile-button" type="submit">Save Profile</button></div>
+					</form>
+
+					<div hidden="hidden" class="container mt-3" id="addNewAddressContainer">
+						<form th:action="@{/address/save}" th:object="${UserAddress}" method="post">
+						
+							<div class="col-md-12"><input type="hidden" id="uuidEdit" name="uuid"></div>
+							<div class="col-md-6"><label class="labels">Flat</label><input required="required" id="flatEdit"  type="text" class="form-control" placeholder="" name="flat" ></div>
+							<div class="col-md-6"><label class="labels">Area</label><input id="areaEdit"  type="text" class="form-control" placeholder="" name="area" ></div>
+							<div class="col-md-6"><label class="labels">Town</label><input id="townEdit"  type="text" class="form-control" placeholder="" name="town" ></div>
+							<div class="col-md-6"><label class="labels">City</label><input id="cityEdit"  type="text" class="form-control" placeholder="" name="city"></div>
+							<div class="col-md-6"><label class="labels">State</label><input id="stateEdit"  type="text" class="form-control" placeholder="" name="state"></div>
+							<div class="col-md-6"><label class="labels">Landmark</label><input id="landmarkEdit"  type="text" class="form-control" placeholder="" name="landmark"></div>
+							<div class="col-md-2"><label class="labels">PIN</label><input id="pinEdit" type="text" class="form-control" placeholder="" name="pin" ></div>
+							<div class="col-md-1">
+								<label class="labels">Default</label><input id="defaultAddressEdit" type="checkbox" class="form-control" placeholder="" name="defaultAddress">
+							</div>
+							<div class="mt-5 text-center">
+								<button id="submitAddressBtn" class="btn btn-primary profile-button" type="submit">Save Address</button>
+								<button onclick="window.location.reload()" id="cancelAddressBtn" class="btn btn-warning profile-button" type="button">Cancel</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+		
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="first-item">
+                        <div class="logo">
+                            <img src="assets/shop/images/white-logo.png" alt="hexashop ecommerce templatemo">
+                        </div>
+                        <ul>
+                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                            <li><a href="#">hexashop@company.com</a></li>
+                            <li><a href="#">010-020-0340</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Shopping &amp; Categories</h4>
+                    <ul>
+                        <li><a href="#">Men’s Shopping</a></li>
+                        <li><a href="#">Women’s Shopping</a></li>
+                        <li><a href="#">Kid's Shopping</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Help &amp; Information</h4>
+                    <ul>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Tracking ID</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-12">
+                    <div class="under-footer">
+                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved. 
+                        
+                        <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a>
+
+                        <br>Distributed By: <a href="https://themewagon.com" target="_blank" title="free & premium responsive templates">ThemeWagon</a></p>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- jQuery -->
+    <script src="assets/shop/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/shop/js/popper.js"></script>
+    <script src="assets/shop/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="assets/shop/js/owl-carousel.js"></script>
+    <script src="assets/shop/js/accordions.js"></script>
+    <script src="assets/shop/js/datepicker.js"></script>
+    <script src="assets/shop/js/scrollreveal.min.js"></script>
+    <script src="assets/shop/js/waypoints.min.js"></script>
+    <script src="assets/shop/js/jquery.counterup.min.js"></script>
+    <script src="assets/shop/js/imgfix.min.js"></script> 
+    <script src="assets/shop/js/slick.js"></script> 
+    <script src="assets/shop/js/lightbox.js"></script> 
+    <script src="assets/shop/js/isotope.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="assets/shop/js/custom.js"></script>
+    
+    <script src="assets/shop/js/profile.js"></script>
+
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+        
+        
+        function validate() {
+            const pass1 = document.getElementById("pass1").value;
+            const pass2 = document.getElementById("pass2").value;
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const username = document.getElementById("username").value;
+            const registerBtn = document.getElementById("registerButton");
+            const errorMsg = document.getElementById("errorMsg");
+            const errorMsg2 = document.getElementById("errorMsg2");
+
+            console.log(username + validateRegrex(username));
+            console.log(name + validateRegrex(name));
+            console.log(pass1 + validateRegrex(pass1));
+
+            if (
+                pass1 != pass2 ||
+                pass1 == "" ||
+                pass2 == "" ||
+                firstName == "" ||
+                lastName == "" ||
+                username == ""
+            ) {
+                console.log("First Validation Failed");
+                registerBtn.disabled = true;
+                errorMsg.hidden = false;
+            } else if (!validateRegrex(username) || !validateRegrex(pass1)) {
+                console.log("Second Validation Failed");
+                registerBtn.disabled = true;
+                errorMsg2.hidden = false;
+            } else {
+                console.log("Third Validation Passed");
+                registerBtn.disabled = false;
+                errorMsg.hidden = true;
+            }
+        }
+
+
+    </script>
+
+  </body>
+
+</html>

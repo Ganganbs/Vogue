@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Razorpay</title>
+</head>
+<body>
+<section>
+    <div class="container">
+        <!-- Your other content -->
+
+        <!-- Razorpay payment form -->
+        <div th:if="${transactionDetails}">
+            <form id="rzpForm" action="@{payment/success}" method="POST">
+            
+            <!-- <a type="button" href="/" class="btn btn-primary m-1">Back to Home</a> -->
+           
+            
+                <!-- Include necessary Razorpay fields -->
+                <input type="hidden" id="orderId" name="orderId"
+                       th:value="${transactionDetails.orderId}">
+                <input type="hidden" id="currency" name="currency"
+                       th:value="${transactionDetails.currency}">
+                <input type="hidden" id="amount" name="amount" th:value="${transactionDetails.amount}">
+                <input type="hidden" id="key" name="key" th:value="${transactionDetails.key}">
+                <!-- <input type="hidden" id="addressId" name="addressId" th:value="${addressId}"> -->
+                <!-- <input type="hidden" id="productId" name="productId" th:value="${productId}"> -->
+                <!-- Include any additional fields you need -->
+
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                <script th:inline="javascript">
+                var options = {
+                        key: 'rzp_test_7B0S7CV55sgTta',
+                        amount: '20000000',
+                        currency: 'INR' ,
+                        order_id: /*[[${transactionDetails.orderId}]]*/,
+                        	handler: function (response) {   // Handle the payment success callback
+                                if (response.razorpay_payment_id) {
+                                   
+                                    window.location.href = '/';
+                                }
+                            },
+                        };
+                
+                    
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                    e.preventDefault();
+                </script>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

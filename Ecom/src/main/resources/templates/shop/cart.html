@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Cart</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="assets/shop/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/shop/css/font-awesome.css">
+
+    <link rel="stylesheet" href="assets/shop/css/templatemo-hexashop.css">
+
+    <link rel="stylesheet" href="assets/shop/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="assets/shop/css/lightbox.css">
+<!--
+
+TemplateMo 571 Hexashop
+
+https://templatemo.com/tm-571-hexashop
+
+-->
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="/" class="logo">
+                            <img src="assets/shop/images/vogue.png" style="width:70%;">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="/" >Home</a></li>
+                           <!--  <li class="scroll-to-section"><a href="#men">Men's</a></li>
+                            <li class="scroll-to-section"><a href="#women">Women's</a></li>
+                            <li class="scroll-to-section"><a href="#kids">Kid's</a></li> -->
+                            <li class="submenu">
+                                <a href="javascript:;">Vogue</a>
+                                <ul>
+                                    <li><a href="/about">About Us</a></li>
+                                    <!-- <li><a href="/allproducts">Products</a></li> -->
+                                    <!-- <li><a href="shop/single-product.html">Single Product</a></li> -->
+                                    <li><a href="/contact">Contact Us</a></li>
+                                </ul>
+                            </li> 
+                            
+                           <li class="submenu">
+                                <a href="javascript:;" th:text="${firstName}"></a>
+                                <ul>
+                                	<li><a href="/profile">Profile</a></li>
+                                    <li><a href="/viewCart">Cart</a></li>
+                                    <!-- <li><a href="#">Wishlist</a></li> -->
+                                    <li><a href="/orders">Orders</a></li>
+ <!--                               <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li> -->   
+                               </ul>
+                           </li> 
+                            <!-- <li class="scroll-to-section"><a href="#explore">Explore</a></li> -->
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+   <div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="breadcrumb-header">Cart</h3>
+						<ul class="breadcrumb-tree">
+							<li><a href="#">Home</a></li>
+							<li class="active">View cart</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
+		
+		
+		<div th:if="${cartEmpty}">
+		<div class="container mt-4">
+			    <div class="row">
+			      <div class="col-md-8">
+			      <h1>Cart is Empty</h1>
+			      </div>
+			 	</div>
+		</div>
+		</div>
+		
+
+
+			<div th:if="${!cartEmpty}">
+			<div class="container mt-4">
+			    <div class="row">
+			      <div class="col-md-8">
+			     
+			<form method="post" th:action="@{/updatecart}" class="table-form">
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Product</th>
+			        <th>Quantity</th>
+			        <th>Price</th>
+			        <!-- <th></th>  -->
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <!-- Loop through cartItems -->
+			      <th:block th:each="cartItem : ${cartItems}">
+			        <tr>
+			          <td th:text="${cartItem.productId.name}"></td>
+			          <td>
+			             <div class="input-number">
+			              <input type="number" name="qty" min="0" max="5" th:value="${cartItem.quantity}" required>
+			              <!-- <span class="qty-up">+</span>
+			              <span class="qty-down">-</span> -->
+			              <!--  <div class="quantity buttons_added">
+                                <input type="button" value="-" name="qty" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" th:value="${cartItem.quantity}"><input type="button" value="+" class="plus">
+                            -->
+			              <input type="hidden" name="cartItemId" th:value="${cartItem.uuid.toString()}">
+			              
+			            </div>
+			          </td>
+			          <td th:text="${cartItem.productId.price * cartItem.quantity}"></td>
+			          <!-- <td><a href="/buyNow" class="btn btn-success">Order</a></td>  -->			          
+			        </tr>
+			       
+			      </th:block>
+			    </tbody>
+			  </table>
+			
+			  <!-- Update button -->
+			  <button type="submit" class="btn btn-warning">Update</button>
+			</form>
+			<br>
+			
+			<!-- Coupon  -->
+		<form method="post" th:action="@{/apply-coupon}">
+			  <input type="text" name="couponCode" placeholder="Enter Coupon Code" required >		
+			  <input type="hidden" name="cartTotal" th:value="${cartTotal}">
+			  <button type="submit" class="btn btn-dark">Apply</button>
+		</form>
+			<br>
+	        <h3>Total: ₹<span th:text="${cartTotal}"></span></h3> 
+	        
+
+        <form method="post" th:object="${NewOrder}" th:action="@{/checkout}" class="my-4">
+          <input type="hidden" name="addressId" th:value="${address.uuid}" />
+          <input type="hidden" name="generatedOrderUuid" id="generatedOrderUuid" />
+           <input type="hidden" name="coupon" th:value="${couponCode}" />
+          <input type="hidden" name="offPrice" th:value="${offPrice}" />
+
+          <h4 class="mb-3">Choose Payment Method</h4>
+          <p hidden="true" id="onlinePayHiddenMsg" class="text-danger">Online Payment not available for orders above 80K</p>
+
+          <select id="paymentMethod" onchange="paymentChange()" name="paymentMethod" class="form-control mb-3">
+            <option selected="selected" value="COD">Cash On Delivery</option>
+            <option id="onlineOption" value="Online">Pay Online</option>
+          </select>
+          <!-- Display order details here -->
+          
+
+          <div hidden="hidden" id="payLoader" class="my-3">
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_p8bfn5to.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+          </div>
+          <legend hidden="hidden" id="paymentErrorMsg" class="text-danger string">error message</legend>
+			<br>
+          <div  id="codCheckout" >
+            <button type="submit" class="btn btn-success">
+              Place Order
+            </button>
+          </div>
+         <!--  <button  id="onlineCheckout" hidden="hidden" onclick="CreateOrderID()" class="btn btn-primary">
+          Pay Online
+        </button> -->
+        </form>
+
+      </div>
+       
+
+      <div class="col-md-4">
+        <div id="addressSelector" class="border p-3">
+          <h4 class="mb-3">Shipping Address:</h4>
+          <p th:text="${address.flat} + ', ' + ${address.area} + ', ' + ${address.town} + ', ' + ${address.city} + ', ' + ${address.state} + ', ' + ${address.pin}" class="mb-0"></p>
+          <p class="mt-2 mb-0"><b>Landmark: </b><span th:text="${address.landmark}"></span></p>
+        </div>
+
+        <div class="mt-4">
+          <h4 class="font-weight-bold">Saved Addresses:</h4>
+          <div class="row mt-2">
+            <div th:each="address, rowIndex : ${addressList}" class="col-md-6">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <a th:href="@{/changeAddress/{id}(id=${address.uuid})}" class="text-decoration-none">
+                      <h6 class="card-title">Address: <span th:text="${rowIndex.count}"></span></h6>
+                    </a>
+                    
+                  </div>
+
+                  <p class="card-text mb-0">
+                    Flat: <span th:text="${address.flat}"></span><br>
+                    Area: <span th:text="${address.area}"></span><br>
+                    Town: <span th:text="${address.town}"></span><br>
+                    City: <span th:text="${address.city}"></span><br>
+                    State: <span th:text="${address.state}"></span><br>
+                    PIN: <span th:text="${address.pin}"></span><br>
+                    Landmark: <span th:text="${address.landmark}"></span>
+                  </p>
+                  <span th:if="${address.defaultAddress}" class="badge badge-success">Default</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+			<div  th:if="${cartEmpty}">
+
+				<div th:if="${orderFailed}" class="d-flex justify-content-center">
+					<h4 class="text-danger mtext-109 cl2 p-b-30 mt-5">
+						Order Failed due to payment error!
+					</h4>
+				</div>
+
+
+				<div class="d-flex justify-content-center">
+					<h3 class="mtext-109 cl2 p-b-30 mt-5 text-center">
+						Cart is empty !!!
+					</h3>
+				</div>
+				<div class="d-flex justify-content-center">
+					<lottie-player src="https://assets2.lottiefiles.com/packages/lf20_qh5z2fdq.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+				</div>
+			</div>
+
+		
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="first-item">
+                        <div class="logo">
+                            <img src="assets/shop/images/white-logo.png" alt="hexashop ecommerce templatemo">
+                        </div>
+                        <ul>
+                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                            <li><a href="#">hexashop@company.com</a></li>
+                            <li><a href="#">010-020-0340</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Shopping &amp; Categories</h4>
+                    <ul>
+                        <li><a href="#">Men’s Shopping</a></li>
+                        <li><a href="#">Women’s Shopping</a></li>
+                        <li><a href="#">Kid's Shopping</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Help &amp; Information</h4>
+                    <ul>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Tracking ID</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-12">
+                    <div class="under-footer">
+                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved. 
+                        
+                        <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a>
+
+                        <br>Distributed By: <a href="https://themewagon.com" target="_blank" title="free & premium responsive templates">ThemeWagon</a></p>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- jQuery -->
+    <script src="assets/shop/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/shop/js/popper.js"></script>
+    <script src="assets/shop/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="assets/shop/js/owl-carousel.js"></script>
+    <script src="assets/shop/js/accordions.js"></script>
+    <script src="assets/shop/js/datepicker.js"></script>
+    <script src="assets/shop/js/scrollreveal.min.js"></script>
+    <script src="assets/shop/js/waypoints.min.js"></script>
+    <script src="assets/shop/js/jquery.counterup.min.js"></script>
+    <script src="assets/shop/js/imgfix.min.js"></script> 
+    <script src="assets/shop/js/slick.js"></script> 
+    <script src="assets/shop/js/lightbox.js"></script> 
+    <script src="assets/shop/js/isotope.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="assets/shop/js/custom.js"></script>
+
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+        
+ 
+        function paymentChange() {
+          var paymentMethod = document.getElementById("paymentMethod").value;
+         //var orderAmount = /* Calculate the order amount based on your data */;
+          var onlineOption = document.getElementById("onlineOption");
+          var onlinePayHiddenMsg = document.getElementById("onlinePayHiddenMsg");
+          var onlineCheckout = document.getElementById("onlineCheckout");
+
+          if (paymentMethod === "Online") {
+            if (orderAmount > 80000) {
+              onlineOption.disabled = true;
+              onlinePayHiddenMsg.style.display = "block";
+              onlineCheckout.style.display = "none";
+            } else {
+              onlineOption.disabled = false;
+              onlinePayHiddenMsg.style.display = "none";
+              onlineCheckout.style.display = "block";
+            }
+          } else {
+            onlineOption.disabled = false;
+            onlinePayHiddenMsg.style.display = "none";
+            onlineCheckout.style.display = "none";
+          }
+        }
+
+        function CreateOrderID() {
+          // Handle online payment logic here
+          // This function is called when the "Pay Online" button is clicked
+        }
+      </script>
+
+
+
+  </body>
+
+</html>
